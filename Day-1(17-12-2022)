@@ -30,3 +30,49 @@ class MyQueue {
         return s1.isEmpty();
     }
 }
+
+//  Evaluate Reverse Polish Notation leet code daily challenge ["2","1","+","3","*"] ((2 + 1) * 3) = 9
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> s= new Stack<>();
+        int i=0;
+        while(i<tokens.length){
+            if(tokens[i].equals("+") || tokens[i].equals("-") || tokens[i].equals("*")  || tokens[i].equals("/") ){
+                //System.out.print(tokens[i]+" "+"operator");
+                int x2=s.pop();
+                int x1=s.pop();
+                String str=tokens[i];
+                int ans=solve(str,x1,x2);
+                s.push(ans);
+            }
+            else{
+                //System.out.print(tokens[i]+" "+"operand");
+                int value=Integer.parseInt(tokens[i]);
+                s.push(value);
+            }
+            i++;
+        }
+            int res=s.pop();
+            return res;
+    }
+        
+        
+    public static int solve(String str,int x1,int x2){
+        if(str.equals("+")){
+            return x1+x2;
+        }
+        if(str.equals("-")){
+            return x1-x2;
+        }
+        if(str.equals("*")){
+            return x1*x2;
+        }
+        if(str.equals("/")){
+            return (int)x1/x2;
+        }
+        return 0;
+    }
+    
+}
+
