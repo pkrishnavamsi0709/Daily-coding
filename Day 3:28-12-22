@@ -1,0 +1,89 @@
+/*You are given a 0-indexed integer array piles, where piles[i] represents the number of stones in the ith pile, and an integer k. You should apply the following operation exactly k times:
+
+Choose any piles[i] and remove floor(piles[i] / 2) stones from it.
+Notice that you can apply the operation on the same pile more than once.
+
+Return the minimum possible total number of stones remaining after applying the k operations.
+
+floor(x) is the greatest integer that is smaller than or equal to x (i.e., rounds x down).
+
+ 
+
+Example 1:
+
+Input: piles = [5,4,9], k = 2
+Output: 12
+Explanation: Steps of a possible scenario are:
+- Apply the operation on pile 2. The resulting piles are [5,4,5].
+- Apply the operation on pile 0. The resulting piles are [3,4,5].
+The total number of stones in [3,4,5] is 12.*/
+
+code:
+class Solution {
+    public int minStoneSum(int[] piles, int k) {
+        int n=piles.length;
+    /*while(k!=0){
+           Arrays.sort(piles);
+            if(piles[n-1]%2==0) piles[n-1]=piles[n-1]/2;
+            else{
+           piles[piles.length-1]=(piles[piles.length-1]+1)/2;}
+            /*for(int i=0;i<piles.length;i++){
+                System.out.print(piles[i]);
+            }
+            System.out.println();
+            k--;
+        }
+        int sum=0;
+        for(int i=0;i<piles.length;i++){
+           sum+=piles[i];
+        }*/
+        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
+        for(int i=0;i<n;i++){
+            pq.offer(piles[i]);
+        }
+        while(k!=0){
+            int val=pq.poll();
+            pq.offer((val+1)/2);
+            k--;
+        }
+        int sum=0;
+        while(!pq.isEmpty()){
+            sum+=pq.poll();
+        }
+        return sum;
+        
+    }
+}
+
+. Contains Duplicate
+
+
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+Output: true
+
+
+
+code:
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> s = new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            if(s.contains(nums[i])){
+                return true;
+            }
+            else{
+                s.add(nums[i]);
+            }
+        }
+        return false;
+        
+    }
+}
+
